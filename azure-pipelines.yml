@@ -10,7 +10,7 @@
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: 'acr1ann'
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
