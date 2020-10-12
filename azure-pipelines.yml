@@ -1,17 +1,16 @@
--- stage: Build
-  displayName: Build and push stage
-  jobs:  
-  - job: Build
-    displayName: Build job
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: 'acr1ann'
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+pool:
+  name: Azure Pipelines
+steps:
+- task: Docker@0
+  displayName: 'Build an image'
+  inputs:
+    azureSubscription: 'Free Trial (3b10f09f-004e-464b-8514-023e3d1af3f0)'
+    azureContainerRegistry: '{"loginServer":"acr1ann.azurecr.io", "id" : "/subscriptions/3b10f09f-004e-464b-8514-023e3d1af3f0/resourceGroups/myapp-rg/providers/Microsoft.ContainerRegistry/registries/acr1ann"}'
+
+- task: Docker@0
+  displayName: 'Push an image'
+  inputs:
+    azureSubscription: 'Free Trial (3b10f09f-004e-464b-8514-023e3d1af3f0)'
+    azureContainerRegistry: '{"loginServer":"acr1ann.azurecr.io", "id" : "/subscriptions/3b10f09f-004e-464b-8514-023e3d1af3f0/resourceGroups/myapp-rg/providers/Microsoft.ContainerRegistry/registries/acr1ann"}'
+    action: 'Push an image'
+
